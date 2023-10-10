@@ -1,0 +1,1 @@
+Training project on creating a shooter game in Unreal Engine 5.
