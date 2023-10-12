@@ -57,6 +57,7 @@ void ASTUBaseCharacter::Tick(float DeltaTime)
 void ASTUBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
+    check(PlayerInputComponent);
 
     PlayerInputComponent->BindAxis("MoveForward", this, &ASTUBaseCharacter::MoveForward);
     PlayerInputComponent->BindAxis("MoveRight", this, &ASTUBaseCharacter::MoveRight);
@@ -114,10 +115,8 @@ void ASTUBaseCharacter::OnDeath()
     UE_LOG(BaseCharacterLog, Display, TEXT("Player %s is dead"), *GetName());
 
     PlayAnimMontage(DeathAnimMontage);
-
     GetCharacterMovement()->DisableMovement();
-
-    SetLifeSpan(5.0f);
+    SetLifeSpan(LifeSpanOnDeath);
 
     if (Controller)
     {
@@ -127,7 +126,7 @@ void ASTUBaseCharacter::OnDeath()
 
 void ASTUBaseCharacter::OnGroundLanded(const FHitResult& Hit)
 {
-    const auto FallVelocityZ = -GetCharacterMovement()->Velocity.Z;
+    const auto FallVelocityZ = -GetVelocity().Z;
     UE_LOG(BaseCharacterLog, Display, TEXT("On landed: %f"), FallVelocityZ);
 
     if (FallVelocityZ < LandedDamageVelocity.X)
