@@ -10,4 +10,5 @@ SortIncludes: false
 AllowShortBlocksOnASingleLine: false
 AlignAfterOpenBracket: DontAlign
 AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: OnlyFirstIf
 PointerAlignment: Left

@@ -27,8 +27,7 @@ void USTUHealthComponent::BeginPlay()
 void USTUHealthComponent::OnTakeAnyDamage(
     AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
-    if (Damage <= 0.0f || IsDead() || !GetWorld())
-        return;
+    if (Damage <= 0.0f || IsDead() || !GetWorld()) return;
     SetHealth(Health - Damage);
 
     GetWorld()->GetTimerManager().ClearTimer(HealTimerHandle);
