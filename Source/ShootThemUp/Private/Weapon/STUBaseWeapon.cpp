@@ -6,6 +6,7 @@
 #include "DrawDebugHelpers.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/Controller.h"
+// #include "Math/Vector.h"
 
 DEFINE_LOG_CATEGORY_STATIC(BaseWeaponLog, All, All)
 
@@ -37,11 +38,18 @@ void ASTUBaseWeapon::MakeShot()
 
     FHitResult HitResult;
     MakeHit(HitResult, TraceStart, TraceEnd);
+    
+    
+    const FVector WeaponVector = WeaponMesh->GetSocketTransform(MuzzleSocketName).GetRotation().GetForwardVector();
+    const FVector ShootingVector = (HitResult.ImpactPoint - GetMuzzleWorldLocation() );
+    const float Angle = FMath::RadiansToDegrees(
+        FMath::Acos(FVector::DotProduct(WeaponVector, ShootingVector.GetSafeNormal())));
 
-    if (HitResult.bBlockingHit)
+    if (HitResult.bBlockingHit && Angle < MaxAngle)
     {
         DrawDebugLine(GetWorld(), GetMuzzleWorldLocation(), HitResult.ImpactPoint, FColor::Red, false, 3.0f, 0, 3.0f);
         DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.0f, 24, FColor::Red, false, 5.0f);
+        UE_LOG(BaseWeaponLog, Display, TEXT("Angle shooting is: %0.f"), Angle);
     }
     else
     {

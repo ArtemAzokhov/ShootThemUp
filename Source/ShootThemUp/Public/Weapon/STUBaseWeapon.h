@@ -28,6 +28,9 @@ protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
     float TraceMaxDistance = 1500.0f;
 
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (ClampMin = "0.0", ClampMax = "90.0"))
+    float MaxAngle = 90.0f;
+
     virtual void BeginPlay() override;
 
     void MakeShot();
