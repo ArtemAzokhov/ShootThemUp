@@ -11,7 +11,6 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/Controller.h"
 
-
 DEFINE_LOG_CATEGORY_STATIC(BaseCharacterLog, All, All)
 
 ASTUBaseCharacter::ASTUBaseCharacter(const FObjectInitializer& ObjInit)
@@ -76,8 +75,7 @@ void ASTUBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
     PlayerInputComponent->BindAction("Run", IE_Pressed, this, &ASTUBaseCharacter::OnStartRuning);
     PlayerInputComponent->BindAction("Run", IE_Released, this, &ASTUBaseCharacter::OnStopRuning);
     PlayerInputComponent->BindAction("Fire", IE_Pressed, WeaponComponent, &USTUWeaponComponent::StartFire);
-        PlayerInputComponent->BindAction("Fire", IE_Released, WeaponComponent, &USTUWeaponComponent::StopFire);
-
+    PlayerInputComponent->BindAction("Fire", IE_Released, WeaponComponent, &USTUWeaponComponent::StopFire);
 }
 
 void ASTUBaseCharacter::MoveForward(float Amount)

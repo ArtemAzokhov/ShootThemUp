@@ -2,8 +2,6 @@
 
 #include "Weapon/STUBaseWeapon.h"
 #include "Components/SkeletalMeshComponent.h"
-//#include "Engine/World.h"
-//#include "DrawDebugHelpers.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/Controller.h"
 
@@ -66,7 +64,6 @@ bool ASTUBaseWeapon::GetTraceData(FVector& TraceStart, FVector& TraceEnd) const
     if (!GetPlayerViewPoint(ViewLocation, ViewRotation)) return false;
 
     TraceStart = ViewLocation;
-    //const auto HalfRad = FMath::DegreesToRadians(BulletSpread);
     const FVector ShootDirection = ViewRotation.Vector();
     TraceEnd = TraceStart + ShootDirection * TraceMaxDistance;
     return true;
