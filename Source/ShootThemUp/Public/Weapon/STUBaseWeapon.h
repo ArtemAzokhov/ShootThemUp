@@ -35,15 +35,12 @@ protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (ClampMin = "0.0", ClampMax = "90.0"))
     float MaxAngle = 90.0f;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-    float TimeBetwenShots = 0.1f;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-    float BulletSpread = 1.5f;
 
     virtual void BeginPlay() override;
 
-    void MakeShot();
+    virtual void MakeShot();
+    virtual bool GetTraceData(FVector& TraceStart, FVector& TraceEnd) const;
 
     APlayerController* GetPlayerController() const;
 
@@ -51,11 +48,6 @@ protected:
 
     FVector GetMuzzleWorldLocation() const;
 
-    bool GetTraceData(FVector& TraceStart, FVector& TraceEnd) const;
-
     void MakeHit(FHitResult& HitResult, const FVector& TraceStart, const FVector& TraceEnd);
     void MakeDamage(FHitResult& HitResult);
-
-private:
-    FTimerHandle ShotTimerHandle;
 };
