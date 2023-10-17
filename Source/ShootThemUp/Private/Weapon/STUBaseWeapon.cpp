@@ -21,19 +21,9 @@ void ASTUBaseWeapon::BeginPlay()
     check(WeaponMesh);
 }
 
-void ASTUBaseWeapon::StartFire()
-{
-
-}
-void ASTUBaseWeapon::StopFire()
-{
-
-}
-
-void ASTUBaseWeapon::MakeShot()
-{
-
-}
+void ASTUBaseWeapon::StartFire() {}
+void ASTUBaseWeapon::StopFire() {}
+void ASTUBaseWeapon::MakeShot() {}
 
 APlayerController* ASTUBaseWeapon::GetPlayerController() const
 {
@@ -76,12 +66,4 @@ void ASTUBaseWeapon::MakeHit(FHitResult& HitResult, const FVector& TraceStart, c
     CollisionParams.AddIgnoredActor(GetOwner());
 
     GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECollisionChannel::ECC_Visibility, CollisionParams);
-}
-
-void ASTUBaseWeapon::MakeDamage(FHitResult& HitResult)
-{
-    const auto DamagedActor = HitResult.GetActor();
-    if (!DamagedActor) return;
-
-    DamagedActor->TakeDamage(DamageAmount, FDamageEvent{}, GetPlayerController(), this);
 }

@@ -23,19 +23,14 @@ protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
     USkeletalMeshComponent* WeaponMesh;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
     FName MuzzleSocketName = "MuzzleSocket";
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-    float TraceMaxDistance = 1500.0f;
-
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-    float DamageAmount = 10.0f;
+    float TraceMaxDistance = 1500.0f;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (ClampMin = "0.0", ClampMax = "90.0"))
     float MaxAngle = 90.0f;
-
-
 
     virtual void BeginPlay() override;
 
@@ -49,5 +44,4 @@ protected:
     FVector GetMuzzleWorldLocation() const;
 
     void MakeHit(FHitResult& HitResult, const FVector& TraceStart, const FVector& TraceEnd);
-    void MakeDamage(FHitResult& HitResult);
 };
