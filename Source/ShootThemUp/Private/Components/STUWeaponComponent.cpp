@@ -7,7 +7,6 @@
 #include "Animations/STUReloadFinishedAnimNotify.h"
 #include "Animations/AnimUtils.h"
 
-
 DEFINE_LOG_CATEGORY_STATIC(WeaponComponentLog, All, All)
 
 constexpr static int32 WeaponNum = 2;
@@ -201,4 +200,14 @@ void USTUWeaponComponent::ChangeClip()
     ReloadAnimInProgress = true;
 
     PlayAnimMontage(CurrentReloadAnimMontage);
+}
+
+bool USTUWeaponComponent::GetWeaponData(FWeaponUIData& UIData) const
+{
+    if (CurrentWeapon)
+    {
+        UIData = CurrentWeapon->GetUIData();
+        return true;
+    }
+    return false;
 }
