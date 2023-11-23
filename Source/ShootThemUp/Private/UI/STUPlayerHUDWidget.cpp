@@ -16,14 +16,28 @@ float USTUPlayerHUDWidget::GetHealthPercent() const
     return HealthComponent->GetHealthPercent();
 }
 
-bool USTUPlayerHUDWidget::GetWeaponData(FWeaponUIData& UIData) const
+bool USTUPlayerHUDWidget::GetCurrentWeaponData(FWeaponUIData& UIData) const
+{
+    const auto WeaponComponent = GetWeaponComponent();
+    if (!WeaponComponent) return false;
+
+    return WeaponComponent->GetCurrentWeaponData(UIData);
+}
+
+bool USTUPlayerHUDWidget::GetCurrentWeaponAmmoData(FAmmoData& AmmoData) const
+{
+    const auto WeaponComponent = GetWeaponComponent();
+    if (!WeaponComponent) return false;
+
+    return WeaponComponent->GetCurrentWeaponAmmoData(AmmoData);
+}
+
+USTUWeaponComponent* USTUPlayerHUDWidget::GetWeaponComponent() const
 {
     const auto Player = GetOwningPlayerPawn();
-    if (!Player) return false;
+    if (!Player) return nullptr;
 
     const auto Component = Player->GetComponentByClass(USTUWeaponComponent::StaticClass());
     const auto WeaponComponent = Cast<USTUWeaponComponent>(Component);
-    if (!WeaponComponent) return false;
-
-    return WeaponComponent->GetWeaponData(UIData);
+    return WeaponComponent;
 }
