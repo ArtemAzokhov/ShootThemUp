@@ -27,7 +27,7 @@ void ASTUBasePickup::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
-    AddActorLocalRotation(FRotator(0.0f, RotationYaw, 0.0f));
+    AddActorLocalRotation(FRotator(0.0f, RotationYaw * DeltaTime * 100, 0.0f));
 }
 
 void ASTUBasePickup::NotifyActorBeginOverlap(AActor* OtherActor)
@@ -48,25 +48,25 @@ bool ASTUBasePickup::GivePickupTo(APawn* PlayerPawn)
 
 void ASTUBasePickup::PickupWasTaken()
 {
-    CollisionComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
     if (GetRootComponent())
     {
         GetRootComponent()->SetVisibility(false, true);
     }
+    CollisionComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 
-    FTimerHandle ReapawnTimerHandle;
-    GetWorldTimerManager().SetTimer(ReapawnTimerHandle, this, &ASTUBasePickup::Reapawn, RespawnTime);
+    FTimerHandle RespawnTimerHandle;
+    GetWorldTimerManager().SetTimer(RespawnTimerHandle, this, &ASTUBasePickup::Respawn, RespawnTime);
 }
 
-void ASTUBasePickup::Reapawn()
+void ASTUBasePickup::Respawn()
 {
     GenerateRotationYaw();
 
-    CollisionComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
     if (GetRootComponent())
     {
         GetRootComponent()->SetVisibility(true, true);
     }
+    CollisionComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 }
 
 void ASTUBasePickup::GenerateRotationYaw()

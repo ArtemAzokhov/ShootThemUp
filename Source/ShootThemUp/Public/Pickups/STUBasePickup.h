@@ -35,6 +35,6 @@ private:
     virtual bool GivePickupTo(APawn* PlayerPawn);
 
     void PickupWasTaken();
-    void Reapawn();
+    void Respawn();
     void GenerateRotationYaw();
 };
