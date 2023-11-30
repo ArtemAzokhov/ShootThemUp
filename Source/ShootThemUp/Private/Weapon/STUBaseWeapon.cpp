@@ -4,6 +4,8 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/Controller.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 
 DEFINE_LOG_CATEGORY_STATIC(BaseWeaponLog, All, All)
 
@@ -158,4 +160,14 @@ bool ASTUBaseWeapon::TryToAddAmmo(int32 ClipsAmount)
         CurrentAmmo.Bullets = DefaultAmmo.Bullets;
     }
     return true;
+}
+
+UNiagaraComponent* ASTUBaseWeapon::SpawnMuzzleFX()
+{
+    return UNiagaraFunctionLibrary::SpawnSystemAttached(MuzzleFX, //
+        WeaponMesh,                                               //
+        MuzzleSocketName,                                         //
+        FVector::ZeroVector,                                      //
+        FRotator::ZeroRotator,                                    //
+        EAttachLocation::SnapToTarget, true);
 }
