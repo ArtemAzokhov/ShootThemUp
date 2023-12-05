@@ -43,7 +43,6 @@ protected:
     virtual void BeginPlay() override;
     virtual void MakeShot() override;
     virtual bool GetTraceData(FVector& TraceStart, FVector& TraceEnd) const override;
-    
 
 private:
     FTimerHandle ShotTimerHandle;
