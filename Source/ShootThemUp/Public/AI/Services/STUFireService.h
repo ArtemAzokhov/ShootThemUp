@@ -10,6 +10,7 @@ UCLASS()
 class SHOOTTHEMUP_API USTUFireService : public UBTService
 {
     GENERATED_BODY()
+
 public:
     USTUFireService();
 
