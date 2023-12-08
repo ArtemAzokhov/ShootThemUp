@@ -243,3 +243,25 @@ bool USTUWeaponComponent::TryToAddAmmo(TSubclassOf<ASTUBaseWeapon> WeaponType, i
     }
     return false;
 }
+
+bool USTUWeaponComponent::NeedAmmo(TSubclassOf<ASTUBaseWeapon> WeaponType, float AmmoPercent)
+{
+    for (const auto Weapon : Weapons)
+    {
+        if (Weapon && Weapon->IsA(WeaponType))
+        {
+            //return !Weapon->IsAmmoFull();
+
+            const auto DefaultClips = Weapon->GetDefaultAmmoData().Clips;
+            const auto DefaultBullets = Weapon->GetDefaultAmmoData().Bullets;
+            const auto DefaultFullAmmo = DefaultClips * DefaultBullets;
+
+            const auto CurrentClips = Weapon->GetAmmoData().Clips;
+            const auto CurrentBullets = Weapon->GetAmmoData().Bullets;
+            const auto CurrentFullAmmo = CurrentClips * CurrentBullets;
+
+            return DefaultFullAmmo * AmmoPercent >= CurrentFullAmmo;
+        }
+    }
+    return false;
+}
