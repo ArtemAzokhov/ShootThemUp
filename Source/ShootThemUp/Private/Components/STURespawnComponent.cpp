@@ -10,18 +10,18 @@ USTURespawnComponent::USTURespawnComponent()
 
 void USTURespawnComponent::Respawn(int32 RespawnTime)
 {
-    if(!GetWorld()) return;
+    if (!GetWorld()) return;
 
     RespawnConuntDown = RespawnTime;
 
     GetWorld()->GetTimerManager().SetTimer(ReapawnTimerHandle, this, &USTURespawnComponent::RespawnTimerUpdate, 1.0f, true);
-
 }
 
-void USTURespawnComponent::RespawnTimerUpdate() {
+void USTURespawnComponent::RespawnTimerUpdate()
+{
     if (--RespawnConuntDown == 0)
     {
-         if(!GetWorld()) return;
+        if (!GetWorld()) return;
         GetWorld()->GetTimerManager().ClearTimer(ReapawnTimerHandle);
 
         const auto GameMode = Cast<ASTUGameModeBase>(GetWorld()->GetAuthGameMode());
@@ -29,4 +29,9 @@ void USTURespawnComponent::RespawnTimerUpdate() {
 
         GameMode->RespawnRequest(Cast<AController>(GetOwner()));
     }
+}
+
+bool USTURespawnComponent::IsRespawnInProgress() const
+{
+    return GetWorld() && GetWorld()->GetTimerManager().IsTimerActive(ReapawnTimerHandle);
 }
