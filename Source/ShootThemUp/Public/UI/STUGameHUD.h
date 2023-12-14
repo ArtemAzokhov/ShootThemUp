@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
+#include "STUCoreTypes.h"
 #include "STUGameHUD.generated.h"
 
 UCLASS()
@@ -19,4 +20,7 @@ protected:
     TSubclassOf<UUserWidget> PlayerHUDWidgetClass;
 
     virtual void BeginPlay() override;
+
+private:
+    void OnMatchStateChanged(ESTUMatchState State);
 };

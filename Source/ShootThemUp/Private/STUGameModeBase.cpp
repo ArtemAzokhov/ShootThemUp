@@ -30,6 +30,7 @@ void ASTUGameModeBase::StartPlay()
     CreateTeamInfo();
     CurrentRound = 1;
     StartRound();
+    SetMathcState(ESTUMatchState::InProgress);
 }
 
 UClass* ASTUGameModeBase::GetDefaultPawnClassForController_Implementation(AController* InController)
@@ -209,4 +210,13 @@ void ASTUGameModeBase::GameOver()
             Pawn->DisableInput(nullptr);
         }
     }
+    SetMathcState(ESTUMatchState::GameOver);
+}
+
+void ASTUGameModeBase::SetMathcState(ESTUMatchState State)
+{
+    if (MatchState == State) return;
+
+    MatchState = State;
+    OnMatchStateChanged.Broadcast(MatchState);
 }
