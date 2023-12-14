@@ -204,7 +204,7 @@ void ASTUGameModeBase::GameOver()
 
     for (auto Pawn : TActorRange<APawn>(GetWorld()))
     {
-        if(Pawn)
+        if (Pawn)
         {
             Pawn->TurnOff();
             Pawn->DisableInput(nullptr);
@@ -219,4 +219,26 @@ void ASTUGameModeBase::SetMathcState(ESTUMatchState State)
 
     MatchState = State;
     OnMatchStateChanged.Broadcast(MatchState);
+}
+
+bool ASTUGameModeBase::SetPause(APlayerController* PC, FCanUnpause CanUnpauseDelegate)
+{
+    const auto PauseSet = Super::SetPause(PC, CanUnpauseDelegate);
+    if (PauseSet)
+    {
+        SetMathcState(ESTUMatchState::Pause);
+    }
+
+    return PauseSet;
+}
+
+bool ASTUGameModeBase::ClearPause()
+{
+    const auto PauseCleared = Super::ClearPause();
+    if (PauseCleared)
+    {
+        SetMathcState(ESTUMatchState::InProgress);
+    }
+
+    return PauseCleared;
 }
