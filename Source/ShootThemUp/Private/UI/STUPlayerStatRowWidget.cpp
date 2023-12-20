@@ -6,7 +6,6 @@
 
 DEFINE_LOG_CATEGORY_STATIC(LogSTUPlayerStatRowWidget, All, All)
 
-
 void USTUPlayerStatRowWidget::SetPlayerName(const FText& Text)
 {
     if (!PlayerNameTextBlock) return;
@@ -40,4 +39,10 @@ void USTUPlayerStatRowWidget::SetPlayerIndicatorVisibility(bool Visible)
     if (!PlayerIndicatorImage) return;
     UE_LOG(LogSTUPlayerStatRowWidget, Display, TEXT("PlayerIndicatorImage"));
     PlayerIndicatorImage->SetVisibility(Visible ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
+}
+
+void USTUPlayerStatRowWidget::SetTeamColor(const FLinearColor& Color)
+{
+    if (!TeamImage) return;
+    TeamImage->SetColorAndOpacity(Color);
 }

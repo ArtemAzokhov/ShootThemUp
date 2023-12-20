@@ -12,31 +12,51 @@ void USTULevelItemWidget::NativeOnInitialized()
     if (LevelSelectButton)
     {
         LevelSelectButton->OnClicked.AddDynamic(this, &USTULevelItemWidget::OnLevelItemClicked);
+        LevelSelectButton->OnHovered.AddDynamic(this, &USTULevelItemWidget::OnLevelItemHovered);
+        LevelSelectButton->OnUnhovered.AddDynamic(this, &USTULevelItemWidget::OnLevelItemUnhovered);
     }
 }
 
-void USTULevelItemWidget::SetLevelData(const FLevelData& Data) {
+void USTULevelItemWidget::SetLevelData(const FLevelData& Data)
+{
     LevelData = Data;
 
-    if(LevelNameTextBlock)
+    if (LevelNameTextBlock)
     {
         LevelNameTextBlock->SetText(FText::FromName(Data.LevelDisplayName));
     }
 
-    if(LevelImage)
+    if (LevelImage)
     {
         LevelImage->SetBrushFromSoftTexture(Data.LevelThumb);
     }
 }
 
-void USTULevelItemWidget::SetSelected(bool IsSelected) {
-    if(FrameImage)
+void USTULevelItemWidget::SetSelected(bool IsSelected)
+{
+    if (LevelImage)
     {
-        FrameImage->SetVisibility(IsSelected ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
+        LevelImage->SetColorAndOpacity(IsSelected ? FLinearColor::Red : FLinearColor::White);
     }
 }
 
 void USTULevelItemWidget::OnLevelItemClicked()
 {
     OnLevelSelected.Broadcast(LevelData);
+}
+
+void USTULevelItemWidget::OnLevelItemHovered()
+{
+    if (FrameImage)
+    {
+        FrameImage->SetVisibility(ESlateVisibility::Visible);
+    }
+}
+
+void USTULevelItemWidget::OnLevelItemUnhovered()
+{
+    if (FrameImage)
+    {
+        FrameImage->SetVisibility(ESlateVisibility::Hidden);
+    }
 }
