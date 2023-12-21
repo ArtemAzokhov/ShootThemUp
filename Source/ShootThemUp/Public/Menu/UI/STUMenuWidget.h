@@ -31,10 +31,14 @@ protected:
     TSubclassOf<UUserWidget> LevelItemWidgetClass;
 
     virtual void NativeOnInitialized() override;
+    virtual void OnAnimationFinished_Implementation(const UWidgetAnimation* Animation) override;
 
 private:
     UPROPERTY()
     TArray<USTULevelItemWidget*> LevelItemWidgets;
+
+    UPROPERTY(meta = (BindWidgetAnim), Transient)
+    UWidgetAnimation* HideAnimation;
 
     UFUNCTION()
     void OnStartGame();

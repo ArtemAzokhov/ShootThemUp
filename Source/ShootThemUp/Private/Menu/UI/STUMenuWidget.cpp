@@ -49,7 +49,7 @@ void USTUMenuWidget::InitLevelItems()
         LevelItemWidgets.Add(LevelItemWidget);
     }
 
-    if(STUGameInstance->GetStartupLevel().LevelName.IsNone())
+    if (STUGameInstance->GetStartupLevel().LevelName.IsNone())
     {
         OnLevelSelected(STUGameInstance->GetLevelsData()[0]);
     }
@@ -66,9 +66,9 @@ void USTUMenuWidget::OnLevelSelected(const FLevelData& Data)
 
     STUGameInstance->SetStartupLevel(Data);
 
-    for(auto LevelItemWidget : LevelItemWidgets)
+    for (auto LevelItemWidget : LevelItemWidgets)
     {
-        if(LevelItemWidget)
+        if (LevelItemWidget)
         {
             const auto IsSelected = Data.LevelName == LevelItemWidget->GetLevelData().LevelName;
             LevelItemWidget->SetSelected(IsSelected);
@@ -78,6 +78,13 @@ void USTUMenuWidget::OnLevelSelected(const FLevelData& Data)
 
 void USTUMenuWidget::OnStartGame()
 {
+    PlayAnimation(HideAnimation);
+}
+
+void USTUMenuWidget::OnAnimationFinished_Implementation(const UWidgetAnimation* Animation)
+{
+    if (Animation != HideAnimation) return;
+
     const auto STUGameInstance = GetSTUGameInstance();
     if (!STUGameInstance) return;
 
