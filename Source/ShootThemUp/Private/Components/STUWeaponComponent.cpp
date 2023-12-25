@@ -79,6 +79,7 @@ void USTUWeaponComponent::EquipWeapon(int32 WeaponIndex)
     if (CurrentWeapon)
     {
         CurrentWeapon->StopFire();
+        CurrentWeapon->Zoom(false);
         AttachWeaponToSocket(CurrentWeapon, Character->GetMesh(), WeaponArmorySocketName);
     }
 
@@ -105,6 +106,7 @@ void USTUWeaponComponent::StopFire()
 {
     if (!CurrentWeapon) return;
     CurrentWeapon->StopFire();
+    CurrentWeapon->Zoom(false);
 }
 
 void USTUWeaponComponent::NextWeapon()
@@ -264,4 +266,12 @@ bool USTUWeaponComponent::NeedAmmo(TSubclassOf<ASTUBaseWeapon> WeaponType, float
         }
     }
     return false;
+}
+
+void USTUWeaponComponent::Zoom(bool Enabled)
+{
+    if (CurrentWeapon)
+    {
+        CurrentWeapon->Zoom(Enabled);
+    }
 }

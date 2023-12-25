@@ -33,6 +33,7 @@ void ASTUBaseWeapon::BeginPlay()
 void ASTUBaseWeapon::StartFire() {}
 void ASTUBaseWeapon::StopFire() {}
 void ASTUBaseWeapon::MakeShot() {}
+void ASTUBaseWeapon::Zoom(bool Enabled) {}
 
 bool ASTUBaseWeapon::GetPlayerViewPoint(FVector& ViewLocation, FRotator& ViewRotation) const
 {
