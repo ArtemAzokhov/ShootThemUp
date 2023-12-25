@@ -12,7 +12,7 @@ void USTUSoundFuncLib::SetSoundClassVolume(USoundClass* SoundClass, float Volume
     SoundClass->Properties.Volume = FMath::Clamp(Volume, 0.0f, 1.0f);
 
     UE_LOG(LogSTUSoundFuncLib, Display, TEXT("Sound class %s changed volume to %f"), //
-        *SoundClass->GetName(),                                                       //
+        *SoundClass->GetName(),                                                      //
         SoundClass->Properties.Volume);
 }
 
