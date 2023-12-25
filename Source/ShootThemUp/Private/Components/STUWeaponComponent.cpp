@@ -106,7 +106,6 @@ void USTUWeaponComponent::StopFire()
 {
     if (!CurrentWeapon) return;
     CurrentWeapon->StopFire();
-    CurrentWeapon->Zoom(false);
 }
 
 void USTUWeaponComponent::NextWeapon()
@@ -186,7 +185,6 @@ bool USTUWeaponComponent::CanReload() const
 
 void USTUWeaponComponent::Reload()
 {
-
     ChangeClip();
 }
 
@@ -209,6 +207,7 @@ void USTUWeaponComponent::ChangeClip()
     if (!CanReload()) return;
     CurrentWeapon->StopFire();
     CurrentWeapon->ChangeClip();
+    CurrentWeapon->Zoom(false);
     ReloadAnimInProgress = true;
 
     PlayAnimMontage(CurrentReloadAnimMontage);
@@ -252,7 +251,7 @@ bool USTUWeaponComponent::NeedAmmo(TSubclassOf<ASTUBaseWeapon> WeaponType, float
     {
         if (Weapon && Weapon->IsA(WeaponType))
         {
-            //return !Weapon->IsAmmoFull();
+            // return !Weapon->IsAmmoFull();
 
             const auto DefaultClips = Weapon->GetDefaultAmmoData().Clips;
             const auto DefaultBullets = Weapon->GetDefaultAmmoData().Bullets;

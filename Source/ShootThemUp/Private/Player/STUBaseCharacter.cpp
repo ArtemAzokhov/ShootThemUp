@@ -68,6 +68,7 @@ void ASTUBaseCharacter::OnDeath()
     GetCapsuleComponent()->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 
     WeaponComponent->StopFire();
+    WeaponComponent->Zoom(false);
 
     GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
     GetMesh()->SetSimulatePhysics(true);
@@ -84,7 +85,7 @@ void ASTUBaseCharacter::OnGroundLanded(const FHitResult& Hit)
 
     const auto FinalDamage = FMath::GetMappedRangeValueClamped(LandedDamageVelocity, LandedDamage, FallVelocityZ);
     UE_LOG(BaseCharacterLog, Display, TEXT("FinalDamage: %f"), FinalDamage);
-    TakeDamage(FinalDamage, FDamageEvent{}, nullptr, nullptr);
+    TakeDamage(FinalDamage, FPointDamageEvent{}, nullptr, nullptr);
 }
 
 void ASTUBaseCharacter::SetPlayerColor(const FLinearColor& Color)
