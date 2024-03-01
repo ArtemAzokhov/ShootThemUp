@@ -7,6 +7,7 @@
 #include "AIController.h"
 #include "Player/STUPlayerState.h"
 #include "Components/STURespawnComponent.h"
+#include "Components/STUWeaponComponent.h"
 #include "STUUtils.h"
 #include "EngineUtils.h"
 
@@ -64,7 +65,7 @@ void ASTUGameModeBase::StartRound()
 
 void ASTUGameModeBase::GameTimerUpdate()
 {
-    //UE_LOG(LogSTUGameModeBase, Display, TEXT("Time: %i / Round: %i/%i"), RoundConundDown, CurrentRound, GameData.RoundsNum);
+    // UE_LOG(LogSTUGameModeBase, Display, TEXT("Time: %i / Round: %i/%i"), RoundConundDown, CurrentRound, GameData.RoundsNum);
 
     if (--RoundConundDown == 0)
     {
@@ -229,7 +230,7 @@ bool ASTUGameModeBase::SetPause(APlayerController* PC, FCanUnpause CanUnpauseDel
     {
         SetMathcState(ESTUMatchState::Pause);
     }
-
+    StopAllFire();
     return PauseSet;
 }
 
@@ -242,4 +243,16 @@ bool ASTUGameModeBase::ClearPause()
     }
 
     return PauseCleared;
+}
+
+void ASTUGameModeBase::StopAllFire()
+{
+    for (auto Pawn : TActorRange<APawn>(GetWorld()))
+    {
+        const auto WeaponComponent = STUUtils::GetSTUPlayerComponent<USTUWeaponComponent>(Pawn);
+        if (!WeaponComponent) continue;
+
+        WeaponComponent->StopFire();
+        WeaponComponent->Zoom(false);
+    }
 }

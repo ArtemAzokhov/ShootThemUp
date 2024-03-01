@@ -67,4 +67,6 @@ private:
     void GameOver();
 
     void SetMathcState(ESTUMatchState State);
+
+    void StopAllFire();
 };
