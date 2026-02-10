@@ -14,12 +14,14 @@ USTUFindEnemyService::USTUFindEnemyService()
 void USTUFindEnemyService::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
     UE_LOG(LogTemp, Display, TEXT("Find enemy"));
-    
+
     const auto BlackBoard = OwnerComp.GetBlackboardComponent();
     if (BlackBoard)
     {
         const auto Controller = OwnerComp.GetAIOwner();
         const auto PerceptionComponent = STUUtils::GetSTUPlayerComponent<USTUAIPerceptionComponent>(Controller);
+        // const auto PerceptionComponent = Controller->FindComponentByClass<USTUAIPerceptionComponent>();
+
         if (PerceptionComponent)
         {
             BlackBoard->SetValueAsObject(EnemyActorKey.SelectedKeyName, PerceptionComponent->GetClosestEnemy());

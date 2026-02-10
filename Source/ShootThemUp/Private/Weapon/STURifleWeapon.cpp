@@ -7,6 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundCue.h"
 #include "Components/AudioComponent.h"
+#include "Engine/DamageEvents.h"
 
 ASTURifleWeapon::ASTURifleWeapon()
 {
